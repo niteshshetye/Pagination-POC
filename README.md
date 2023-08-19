@@ -2,9 +2,10 @@
 
 Here We did 3 types of pagination
 
-1. Pagination Limit Based on Screen Size.
-2. Tolerance Pagination.
-3. Infinite Scroll On both side. (upper and down)
+1. Pagination Limit Based on Screen Size (done).
+2. Infinite Scroll down.
+3. Infinite Scroll up.
+4. Tolerance Pagination.
 
 ## Install Yarn with brew.
 
@@ -26,6 +27,12 @@ yarn add redux-logger @types/redux-logger -D // for dev dependencies
 yarn add --save axios @types/axios
 yarn add react-infinite-scroller
 ```
+
+## Notes
+
+console.log(Math.ceil(1.6)); // always give greater value
+console.log(Math.floor(1.9)); // always give lower value
+console.log(Math.round(1.2)); // if above .5 give greater value else give lower value
 
 # Getting Started with Create React App
 

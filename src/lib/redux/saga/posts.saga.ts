@@ -2,18 +2,17 @@ import { postsTypes } from "../action-types";
 import { postsActions } from "./../actions";
 import { put, takeLatest } from "redux-saga/effects";
 import axios, { AxiosResponse } from "axios";
-import { apiConfig } from "../../../config/config";
-import { IPosts } from "../types/posts";
+import { ApiConfig } from "../../../config/config";
+import { IPosts } from "../types/posts.modal";
 
-const fetchPosts = (params: IPosts.RequiredParams) =>
-  axios.get(`${apiConfig.BASE_URL}${apiConfig.POSTS}`, { params });
+const fetchPosts = (params: Omit<IPosts.RequiredParams, "direction">) =>
+  axios.get(`${ApiConfig.BASE_URL}${ApiConfig.POSTS}`, { params });
 
 function* workerPosts(action: ReturnType<typeof postsActions.postsRequired>) {
+  const { direction, ...params } = action.payload;
   try {
-    const { data }: AxiosResponse<IPosts.Response[]> = yield fetchPosts(
-      action.payload
-    );
-    yield put(postsActions.postsSuccess(data));
+    const { data }: AxiosResponse<IPosts.Response[]> = yield fetchPosts(params);
+    yield put(postsActions.postsSuccess({ posts: data, direction }));
   } catch (error: any) {
     console.error(error?.response);
     yield put(

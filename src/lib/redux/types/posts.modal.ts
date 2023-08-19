@@ -1,5 +1,4 @@
 import { PaginationParams } from "../../../config/config";
-import { postsActions } from "../actions";
 
 export namespace IPosts {
   export interface State {
@@ -9,29 +8,34 @@ export namespace IPosts {
     pagination: IPagination;
   }
 
+  export enum ScrollDirection {
+    UP = "UP",
+    DOWN = "DOWN",
+    NONE = "NONE",
+  }
+
+  export interface IPagination {
+    page: number;
+    limit: number;
+    totalItem: number;
+    totalPages: number;
+  }
+
   export interface RequiredParams {
     [PaginationParams.page]: string;
     [PaginationParams.limit]: string;
+    direction: ScrollDirection;
   }
 
-  interface Response {
+  export interface Response {
     userId: number;
     id: number;
     title: string;
     body: string;
   }
 
-  interface Error {
+  export interface Error {
     isError: boolean;
     msg: string;
   }
-  interface IPagination {
-    page: number;
-    limit: number;
-  }
-
-  type IPostsActions =
-    | postsActions.postsRequired
-    | postsActions.postsSuccess
-    | postsActions.postsFailed;
 }

@@ -1,5 +1,5 @@
 import { postsTypes } from "../action-types";
-import { IPosts } from "../types/posts";
+import { IPosts } from "../types/posts.modal";
 
 const postsRequired = (params: IPosts.RequiredParams) => {
   return {
@@ -8,10 +8,16 @@ const postsRequired = (params: IPosts.RequiredParams) => {
   };
 };
 
-const postsSuccess = (posts: IPosts.Response[]) => {
+const postsSuccess = ({
+  direction,
+  posts,
+}: {
+  direction: IPosts.ScrollDirection;
+  posts: IPosts.Response[];
+}) => {
   return {
     type: postsTypes.POSTS_SUCCESS,
-    payload: posts,
+    payload: { direction, posts },
   };
 };
 
@@ -22,8 +28,24 @@ const postsFailed = (error: IPosts.Error) => {
   };
 };
 
+const postsChangesPage = (page: number) => {
+  return {
+    type: postsTypes.POSTS_PAGINATION_PAGE,
+    payload: page,
+  };
+};
+
+const postsChangesLimit = (limit: number) => {
+  return {
+    type: postsTypes.POSTS_PAGINATION_PAGE,
+    payload: limit,
+  };
+};
+
 export const postsActions = {
   postsRequired,
   postsSuccess,
   postsFailed,
+  postsChangesPage,
+  postsChangesLimit,
 };
