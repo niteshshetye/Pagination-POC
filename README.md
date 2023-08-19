@@ -1,3 +1,31 @@
+# Purpose of the project
+
+Here We did 3 types of pagination
+
+1. Pagination Limit Based on Screen Size.
+2. Tolerance Pagination.
+3. Infinite Scroll On both side. (upper and down)
+
+## Install Yarn with brew.
+
+```bash
+brew install yarn
+```
+
+## Create React app Command.
+
+```bash
+yarn create react-app . --template typescript
+```
+
+## Packages Which Used.
+
+```bash
+yarn add --save redux @reduxjs/toolkit react-redux redux-saga @types/react-redux @types/redux-saga
+yarn add --save-dev redux-logger @types/redux-logger
+yarn add --save axios @types/axios
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
