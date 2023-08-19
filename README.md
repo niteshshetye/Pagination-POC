@@ -22,8 +22,9 @@ yarn create react-app . --template typescript
 
 ```bash
 yarn add --save redux @reduxjs/toolkit react-redux redux-saga @types/react-redux @types/redux-saga
-yarn add --save-dev redux-logger @types/redux-logger
+yarn add redux-logger @types/redux-logger -D // for dev dependencies
 yarn add --save axios @types/axios
+yarn add react-infinite-scroller
 ```
 
 # Getting Started with Create React App
