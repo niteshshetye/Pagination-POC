@@ -37,7 +37,7 @@ const postsChangesPage = (page: number) => {
 
 const postsChangesLimit = (limit: number) => {
   return {
-    type: postsTypes.POSTS_PAGINATION_PAGE,
+    type: postsTypes.POSTS_PAGINATION_LIMIT,
     payload: limit,
   };
 };
