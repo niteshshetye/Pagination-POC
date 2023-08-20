@@ -20,8 +20,6 @@ export namespace IPosts {
     totalItem: number;
     totalPages: number;
     windowSize: number;
-    startOfWindow: number;
-    endOfWindow: number;
   }
 
   export interface RequiredParams {

@@ -14,8 +14,6 @@ const paginationInitialState: IPosts.IPagination = {
   totalItem: 100,
   totalPages: 0,
   windowSize: 0,
-  startOfWindow: 0,
-  endOfWindow: 0,
 };
 
 const postInitialState: IPosts.State = {
@@ -43,12 +41,12 @@ export const postsReducer = (
           direction: IPosts.ScrollDirection;
         };
       let newList: IPosts.Response[] = [];
-      if (state.pagination.windowSize - 1 < state.posts.length) {
+      if (state.pagination.windowSize <= state.posts.length) {
         newList = [...state.posts];
         switch (direction) {
           case IPosts.ScrollDirection.DOWN:
             newList = [...newList, ...posts];
-            newList.splice(0, state.pagination.limit);
+            newList.splice(0, posts.length);
             break;
           case IPosts.ScrollDirection.UP:
             newList = [...posts, ...newList];

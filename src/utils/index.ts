@@ -40,3 +40,30 @@ export function calculateWindowSize(limit: number): number {
 export function calculateArrayLength<T>(array: T[]): number {
   return array.length;
 }
+
+export const throttle = (callback: Function, delay: number) => {
+  let throttleTimeout: ReturnType<typeof setTimeout> | null = null;
+  let storedEvent: any = null;
+
+  const throttledEventHandler = (event: any) => {
+    storedEvent = event;
+
+    const shouldHandleEvent = !throttleTimeout;
+
+    if (shouldHandleEvent) {
+      callback(storedEvent);
+
+      storedEvent = null;
+
+      throttleTimeout = setTimeout(() => {
+        throttleTimeout = null;
+
+        if (storedEvent) {
+          throttledEventHandler(storedEvent);
+        }
+      }, delay);
+    }
+  };
+
+  return throttledEventHandler;
+};

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, AppState } from "./lib/redux/store";
 import { useSelector } from "react-redux";
 import { IPosts } from "./lib/redux/types/posts.modal";
-import { getScreenItemLimit } from "./utils";
+import { getScreenItemLimit, throttle } from "./utils";
 import "./App.css";
 
 const RESIZE = "resize";
@@ -99,7 +99,7 @@ const App = () => {
       <div className="main-header">
         <h1>My Posts</h1>
       </div>
-      <div className="main-list" onScroll={handleScrollWindow}>
+      <div className="main-list" onScroll={throttle(handleScrollWindow, 500)}>
         {loading ? (
           <h2>Loading...!</h2>
         ) : (

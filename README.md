@@ -3,7 +3,7 @@
 Here We did 3 types of pagination
 
 1. Pagination Limit Based on Screen Size (done).
-2. Infinite Scroll down.
+2. Infinite Scroll down. (if item length reach window size remove first 0 to limit elements from the store also done)
 3. Infinite Scroll up.
 4. Tolerance Pagination.
 
