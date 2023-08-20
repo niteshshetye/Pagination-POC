@@ -1,6 +1,6 @@
 import { postsTypes } from "../action-types";
 import { IPosts } from "../types/posts.modal";
-import { calculateTotalPages } from "../../../utils";
+import { calculateTotalPages, calculateWindowSize } from "../../../utils";
 import { AnyAction } from "@reduxjs/toolkit";
 
 const error: IPosts.Error = {
@@ -13,6 +13,9 @@ const paginationInitialState: IPosts.IPagination = {
   limit: 5,
   totalItem: 100,
   totalPages: 0,
+  windowSize: 0,
+  startOfWindow: 0,
+  endOfWindow: 0,
 };
 
 const postInitialState: IPosts.State = {
@@ -34,8 +37,31 @@ export const postsReducer = (
       };
 
     case postsTypes.POSTS_SUCCESS:
-      const { posts } = action.payload;
-      const newList = [...state.posts, ...posts];
+      const { posts, direction = IPosts.ScrollDirection.NONE } =
+        action.payload as {
+          posts: IPosts.Response[];
+          direction: IPosts.ScrollDirection;
+        };
+      let newList: IPosts.Response[] = [];
+      if (state.pagination.windowSize - 1 < state.posts.length) {
+        newList = [...state.posts];
+        switch (direction) {
+          case IPosts.ScrollDirection.DOWN:
+            newList = [...newList, ...posts];
+            newList.splice(0, state.pagination.limit);
+            break;
+          case IPosts.ScrollDirection.UP:
+            newList = [...posts, ...newList];
+            newList.splice(
+              newList.length - state.pagination.limit,
+              newList.length
+            );
+            break;
+        }
+      } else {
+        newList = [...state.posts, ...posts];
+      }
+
       return {
         ...state,
         loading: false,
@@ -59,15 +85,17 @@ export const postsReducer = (
       };
 
     case postsTypes.POSTS_PAGINATION_LIMIT:
+      const currentLimit: number = action.payload;
       return {
         ...state,
         pagination: {
           ...state.pagination,
-          limit: action.payload,
+          limit: currentLimit,
           totalPages: calculateTotalPages(
-            action.payload,
+            currentLimit,
             state.pagination.totalItem
           ),
+          windowSize: calculateWindowSize(currentLimit),
         },
       };
 
