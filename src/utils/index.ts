@@ -13,15 +13,15 @@ export function getScreenItemLimit(): number {
   if (windowWidth <= 500) {
     screenItemLimit = 10;
   } else if (windowWidth > 500 && windowWidth <= 1080) {
-    screenItemLimit = 25;
+    screenItemLimit = 20;
   } else if (windowWidth > 1080 && windowWidth <= 1280) {
-    screenItemLimit = 50;
+    screenItemLimit = 30;
   } else if (windowWidth > 1280 && windowWidth <= 1440) {
-    screenItemLimit = 100;
+    screenItemLimit = 30;
   } else if (windowWidth > 1440 && windowWidth <= 1920) {
-    screenItemLimit = 150;
+    screenItemLimit = 30;
   } else if (windowWidth > 1920 && windowWidth <= 2048) {
-    screenItemLimit = 200;
+    screenItemLimit = 100;
   } else {
     screenItemLimit = 10;
   }
@@ -31,4 +31,12 @@ export function getScreenItemLimit(): number {
 
 export function calculateTotalPages(limit: number, totalItem: number): number {
   return Math.ceil(totalItem / limit);
+}
+
+export function calculateWindowSize(limit: number): number {
+  return limit * DefaultConig.DEFAULT_WINDOW_MULTIPLER;
+}
+
+export function calculateArrayLength<T>(array: T[]): number {
+  return array.length;
 }
